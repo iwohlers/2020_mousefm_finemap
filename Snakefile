@@ -46,16 +46,67 @@ rule run_mousefm:
     script: "scripts/MouseFM_expression.R"
 
 rule run_mousefm_all:    
-    input: expand("results/GN/thr_{threshold}/grp_{groupsize}/detected/done", threshold=["0"], groupsize=["2","3","4","5","6","7","8","9","10"])
+    input: expand("results/GN/thr_{threshold}/grp_{groupsize}/detected/done", threshold=["0"], groupsize=["1","2","3","4","5","6","7","8","9","10"]),
+           expand("results/GN/thr_{threshold}/grp_{groupsize}/detected/done", threshold=["1"], groupsize=["2","3","4","5","6","7","8","9","10"])
 
 rule number_finemapped:
     input: "results/{GN_or_T4}/thr_{threshold}/grp_{groupsize}/done",
     output: "results/{GN_or_T4}/thr_{threshold}/grp_{groupsize}/summary.txt"
-    shell: "wc -l results/GN/thr_{wildcards.threshold}/grp_{wildcards.groupsize}/*.txt > {output}"
+    shell: "wc -l results/{wildcards.GN_or_T4}/thr_{wildcards.threshold}/grp_{wildcards.groupsize}/*.txt > {output}"
 
 rule number_finemapped_all:
     input: expand("results/{GN_or_T4}/thr_{threshold}/grp_{groupsize}/{subset}/summary.txt", \
                    GN_or_T4=["GN","T4"], \
+                   threshold=["0"], \
+                   groupsize=["1","2","3","4","5","6","7","8","9","10"], \
+                   subset=["detected","validated","other"]),
+            expand("results/{GN_or_T4}/thr_{threshold}/grp_{groupsize}/{subset}/summary.txt", \
+                   GN_or_T4=["GN","T4"], \
                    threshold=["1"], \
                    groupsize=["2","3","4","5","6","7","8","9","10"], \
                    subset=["detected","validated","other"])
+
+rule plot_num_finemapped:
+    input: expand("results/{GN_or_T4}/thr_{threshold}/grp_{groupsize}/{subset}/summary.txt", \
+                   GN_or_T4=["GN","T4"], \
+                   threshold=["0"], \
+                   groupsize=["1","2","3","4","5","6","7","8","9","10"], \
+                   subset=["detected","validated","other"]),
+            expand("results/{GN_or_T4}/thr_{threshold}/grp_{groupsize}/{subset}/summary.txt", \
+                   GN_or_T4=["GN","T4"], \
+                   threshold=["1"], \
+                   groupsize=["2","3","4","5","6","7","8","9","10"], \
+                   subset=["detected","validated","other"])
+    output: "results/num_finemapped.pdf"
+    script: "scripts/visualize_finemap_results.R"
+
+rule extract_info_published_genes:
+    input: expand("results/{GN_or_T4}/thr_{threshold}/grp_{groupsize}/{subset}/summary.txt", \
+                   GN_or_T4=["GN","T4"], \
+                   threshold=["0"], \
+                   groupsize=["1","2","3","4","5","6","7","8","9","10"], \
+                   subset=["detected","validated","other"]),
+            expand("results/{GN_or_T4}/thr_{threshold}/grp_{groupsize}/{subset}/summary.txt", \
+                   GN_or_T4=["GN","T4"], \
+                   threshold=["1"], \
+                   groupsize=["2","3","4","5","6","7","8","9","10"], \
+                   subset=["detected","validated","other"])
+    output: "results/summary_published_genes/{gene}.txt"
+    shell: "cat {input} | grep '{wildcards.gene}_' > {output}"
+
+GENES = []
+with open("data/published_genes_pmid_252679730.txt","r") as f_in:
+    for line in f_in:
+        GENES.append(line.strip("\n"))
+
+# Three genes had no fine-mapping result, remove them here
+GENES = [ x for x in GENES if x not in ["Plekhg1","Gcn1","Arl16"]] 
+
+rule extract_info_published_genes_all:
+    input: expand("results/summary_published_genes/{gene}.txt", gene=GENES)
+
+rule list_published_genes_finemapped:
+    input: expand("results/summary_published_genes/{gene}.txt", gene=GENES)
+    output: "results/summary_published_genes/finemapped_genes.txt"
+    shell: "cat {input} | cut -d '/' -f 6 | cut -d '_' -f 1 | sort | " + \
+           " uniq > {output}"

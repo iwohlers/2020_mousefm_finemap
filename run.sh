@@ -9,7 +9,7 @@ source activate workflow_2020_population_genetics
 
 echo "RUNNING SNAKEMAKE WORKFLOW..."
 
-snakemake -j 10 --rerun-incomplete -p -k --use-conda run_mousefm_all
+snakemake -j 10 --rerun-incomplete -p -k --use-conda number_finemapped_all
 
 # If environment.yaml has been changed, the existing environment needs to be removed 
 # in order to re-generate the environment using: 
