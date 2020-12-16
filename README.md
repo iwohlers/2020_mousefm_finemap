@@ -6,7 +6,7 @@ M. Munz, M. Khodaygani, Z. Aherrahrou, H. Busch and I. Wohlers.
 In silico candidate variant and gene identification using inbred mouse strains.  
 bioRxiv 2020.09.04.282731, 2020
 
-Briefly, this is the workflow used for MouseFM fine-mapping of expression data previously used for eQTL identifcation using a large number of inbred mouse strains.  
+Briefly, this is the workflow used for MouseFM fine-mapping of expression data, using two data sets previously utilized for eQTL identifcation based on a large number of inbred mouse strains.  
   
 Mostafavi, S., Ortiz-Lopez, A., Bogue, M. A., Hattori, K., Pop, C., Koller, D., Mathis, D., Benoist, C., and Immunological Genome Consortium.  
 Variation and genetic control of gene expression in primary immunocytes across inbred mouse strains.  
