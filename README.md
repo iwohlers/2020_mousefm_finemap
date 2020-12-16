@@ -2,7 +2,7 @@
 
 For details, see our corresponding [preprint](https://www.biorxiv.org/content/10.1101/2020.09.04.282731v1):
 
-M. Munz, M. Khodaygani, Z. Aherrahrou, H. Busch and I. Wohlers. 
+M. Munz, M. Khodaygani, Z. Aherrahrou, H. Busch and I. Wohlers.  
 In silico candidate variant and gene identification using inbred mouse strains.  
 bioRxiv 2020.09.04.282731, 2020
 
