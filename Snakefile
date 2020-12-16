@@ -110,3 +110,7 @@ rule list_published_genes_finemapped:
     output: "results/summary_published_genes/finemapped_genes.txt"
     shell: "cat {input} | cut -d '/' -f 6 | cut -d '_' -f 1 | sort | " + \
            " uniq > {output}"
+
+rule combinatorial_explosion:
+    output: "results/max_num_comb.pdf"
+    script: "scripts/combinatorial_explosion.R"
