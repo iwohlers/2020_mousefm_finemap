@@ -3,7 +3,7 @@ red <- rgb(228/255,32/255,50/255)
 blue <- rgb(0/255,106/255,163/255)
 yellow <- rgb(250/255,187/255,0)
 
-pdf("results/num_finemapped.pdf",width=13,height=11)
+pdf("results/num_finemapped.pdf",width=10,height=9.2)
 
 par(mfrow=c(3,2))
 
@@ -160,7 +160,7 @@ num_gn_other_thr1[10] <- length(gn_other_thr1_grp10[,1])
 
 ########## GN, number evaluated plotting ################
 
-plot(1:10,log10(num_gn_other_thr0),col=yellow,type="l",ylim=c(0.5,4),xlab="Minimum size of smaller group",ylab="log10 (# fine-mapped transcripts)", main="Neutrophils")
+plot(1:10,log10(num_gn_other_thr0),col=yellow,type="l",ylim=c(0.5,4.5),xlab="Minimum size of smaller group",ylab="log10 (# fine-mapped transcripts)", main="Neutrophils")
 add=TRUE
 lines(1:10,log10(num_gn_other_thr0),col=yellow,type="p",pch=16)
 lines(1:10,log10(num_gn_detected_thr0),col=red,type="l")
@@ -175,7 +175,7 @@ lines(1:10,log10(num_gn_detected_thr1),col=red,type="p",pch=16)
 lines(1:10,log10(num_gn_validated_thr1),col=blue,type="l",lty=3)
 lines(1:10,log10(num_gn_validated_thr1),col=blue,type="p",pch=16)
 
-legend("topright", legend=c("No previous eQTL transcript","Previous eQTL transcript","Previous eQTL transcript and variant","Threshold 0","Threshold 1"),col=c(yellow,red,blue,"black","black"), lty=c(NA,NA,NA,1,3), pch=c(15,15,15,NA,NA))
+legend("topright", legend=c("No eQTL transcript","eQTL transcript","eQTL transcript/variant","Threshold 0","Threshold 1"),col=c(yellow,red,blue,"black","black"), lty=c(NA,NA,NA,1,3), pch=c(15,15,15,NA,NA))
 
 
 ########## T4, threshold 0 ################
@@ -330,7 +330,7 @@ num_t4_other_thr1[10] <- length(t4_other_thr1_grp10[,1])
 
 ########## T4, number evaluated plotting ################
 
-plot(1:10,log10(num_t4_other_thr0),col=yellow,type="l",ylim=c(0.5,4),xlab="Minimum size of smaller group",ylab="log10 (# fine-mapped transcripts)",main="CD4+ T cells")
+plot(1:10,log10(num_t4_other_thr0),col=yellow,type="l",ylim=c(0.5,4.5),xlab="Minimum size of smaller group",ylab="log10 (# fine-mapped transcripts)",main="CD4+ T cells")
 add=TRUE
 lines(1:10,log10(num_t4_other_thr0),col=yellow,type="p",pch=16)
 lines(1:10,log10(num_t4_detected_thr0),col=red,type="l")
